@@ -1,0 +1,70 @@
+
+// libnfc_tf
+
+cc_library_shared {
+    name: "libnfc_tf",
+
+    cflags: [
+        "-DANDROID",
+        "-pipe ",
+        "-fomit-frame-pointer",
+        "-Wall " ,
+        "-Wno-trigraphs " ,
+        "-Werror-implicit-function-declaration",
+        "-fno-strict-aliasing ",
+        // GP_NFC HCL COMMENTED FOR BUILD ERROR -S
+        //"-mapcs ",
+        //"-mno-sched-prolog" ,
+        //"-mabi=aapcs-linux",
+        //"-mno-thumb-interwork",
+        // GP_NFC HCL COMMENTED FOR BUILD ERROR -E
+        "-msoft-float",
+        "-Uarm ",
+        "-fno-common",
+        "-fpic",
+        // GP_NFC HCL ADDED -S
+        "-Wno-unused-variable" ,
+        "-Wno-unused-parameter",
+        "-Wno-unused-function ",
+        "-Wno-format ",
+        //debug option
+        "-DDEBUG",
+        "-D_DEBUG",
+        "-DNFC_TF_DEBUG",
+        //release option
+        //"-DNDEBUG",
+        // GP_NFC HCL ADDED -E
+         
+    ],
+
+    srcs: ["**/*.c"],
+
+     // GP_NFC HCL ADDED -S
+       compile_multilib: "32",
+     // GP_NFC HCL ADDED -E
+
+
+    // GP_NFC HCL COMMENTED -S
+    //include_dirs: [
+    //    "external/openssl/include",
+    //],
+    // GP_NFC HCL COMMENTED -E
+
+    local_include_dirs: ["inc"],
+
+    shared_libs: [
+       
+        "libcutils",
+        "libdl" ,
+        "liblog" ,
+        "libcrypto" ,
+    ],
+ 
+   arch: {
+        arm: {
+            instruction_set: "arm",
+        },
+    }, 
+
+}
+
